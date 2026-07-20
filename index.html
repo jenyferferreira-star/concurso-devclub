@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevClub — a gente fabrica programador</title>
+  <meta name="description" content="A escola de programação que forma devs contratados. +25 mil alunos, formações do zero ao avançado, comunidade, mentorias semanais e vagas exclusivas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" defer></script>
+  <script src="scene3d.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <!-- BOOT SEQUENCE -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__inner">
+      <div class="boot__logo">
+        <svg viewBox="0 0 26 26" fill="none">
+          <rect x="1" y="1" width="24" height="24" rx="6" stroke="#7CFF6B" stroke-width="1.5"/>
+          <path d="M7 10L10 13L7 16" stroke="#7CFF6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13 17H19" stroke="#F4F2EC" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        DEVCLUB.SYSTEM
+      </div>
+      <div id="boot-lines"></div>
+    </div>
+  </div>
+
+  <!-- SCROLL PROGRESS BAR -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- SECTION MARKERS -->
+  <nav class="markers" id="markers" aria-label="Navegação por seções">
+    <a href="#top" class="marker" data-section="top"><span class="marker__label">início</span></a>
+    <a href="#formacoes" class="marker" data-section="formacoes"><span class="marker__label">formações</span></a>
+    <a href="#stack" class="marker" data-section="stack"><span class="marker__label">stack</span></a>
+    <a href="#salary" class="marker" data-section="salary"><span class="marker__label">salários</span></a>
+    <a href="#editor" class="marker" data-section="editor"><span class="marker__label">método em código</span></a>
+    <a href="#tutores" class="marker" data-section="tutores"><span class="marker__label">tutores</span></a>
+    <a href="#depoimentos" class="marker" data-section="depoimentos"><span class="marker__label">depoimentos</span></a>
+    <a href="#cta" class="marker" data-section="cta"><span class="marker__label">começar</span></a>
+  </nav>
+
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-halo" aria-hidden="true"></div>
+
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo" aria-label="DevClub — página inicial">
+      <svg viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="24" height="24" rx="6" stroke="#7CFF6B" stroke-width="1.5"/>
+        <path d="M7 10L10 13L7 16" stroke="#7CFF6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 17H19" stroke="#F4F2EC" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      DEVCLUB
+    </a>
+    <div class="nav__links">
+      <a href="#formacoes">formações</a>
+      <a href="#stack">stack</a>
+      <a href="#tutores">tutores</a>
+      <a href="#depoimentos">alunos</a>
+    </div>
+    <div class="nav__cta">
+      <a href="#" class="btn btn--ghost">área do aluno</a>
+      <a href="#cta" class="btn btn--primary">quero ser aluno <span class="btn__arrow">→</span></a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <div class="hero__3d" id="hero-3d" aria-hidden="true"></div>
+    <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero__grid">
+      <div class="hero__content">
+        <div class="eyebrow hero__eyebrow">devclub / 2016 → hoje</div>
+        <h1 class="display display--xl hero__headline" data-reveal id="hero-headline">
+          <span class="line" data-scramble>A gente não ensina código.</span>
+          <span class="line">A gente fabrica <span class="hero__kinetic"><span class="hero__kinetic-word" id="kinetic">programador</span></span>.</span>
+        </h1>
+        <p class="hero__sub" data-reveal>
+          <b>+25 mil pessoas</b> passaram por aqui. A maioria hoje trampa em Nubank, iFood, Stone, Meta.
+          Isso <b>não é sorte</b> — é método.
+        </p>
+        <div class="hero__actions" data-reveal>
+          <a href="#cta" class="btn btn--primary btn--lg" data-magnetic>começar agora <span class="btn__arrow">→</span></a>
+          <a href="#formacoes" class="btn btn--ghost btn--lg" data-magnetic>ver formações</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <div class="hero__scroll-cue">
+        <span class="dot"></span>
+        role para descobrir
+      </div>
+      <div class="hero__meta">
+        <span>4.9/5 · nota média</span>
+        <span>+4.500 contratações</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="proof" aria-label="Empresas que contratam alunos DevClub">
+    <div class="proof__label">
+      <span class="eyebrow">alunos formados hoje trabalham em</span>
+    </div>
+    <div class="marquee">
+      <div class="marquee__track">
+        <span class="marquee__item">Nubank</span>
+        <span class="marquee__item">iFood</span>
+        <span class="marquee__item">Ambev</span>
+        <span class="marquee__item">Stone</span>
+        <span class="marquee__item">Mercado Livre</span>
+        <span class="marquee__item">99</span>
+        <span class="marquee__item">PicPay</span>
+        <span class="marquee__item">Meta</span>
+        <span class="marquee__item">Google</span>
+        <span class="marquee__item">Amazon</span>
+        <span class="marquee__item">Bradesco</span>
+        <span class="marquee__item">Itaú</span>
+        <span class="marquee__item">XP</span>
+        <span class="marquee__item">C6 Bank</span>
+      </div>
+      <div class="marquee__track" aria-hidden="true">
+        <span class="marquee__item">Nubank</span>
+        <span class="marquee__item">iFood</span>
+        <span class="marquee__item">Ambev</span>
+        <span class="marquee__item">Stone</span>
+        <span class="marquee__item">Mercado Livre</span>
+        <span class="marquee__item">99</span>
+        <span class="marquee__item">PicPay</span>
+        <span class="marquee__item">Meta</span>
+        <span class="marquee__item">Google</span>
+        <span class="marquee__item">Amazon</span>
+        <span class="marquee__item">Bradesco</span>
+        <span class="marquee__item">Itaú</span>
+        <span class="marquee__item">XP</span>
+        <span class="marquee__item">C6 Bank</span>
+      </div>
+    </div>
+    <div class="marquee marquee--reverse" style="margin-top: 20px;">
+      <div class="marquee__track">
+        <span class="marquee__item">Rappi</span>
+        <span class="marquee__item">Uber</span>
+        <span class="marquee__item">Magazine Luiza</span>
+        <span class="marquee__item">Globo</span>
+        <span class="marquee__item">Rocket</span>
+        <span class="marquee__item">Warren</span>
+        <span class="marquee__item">Wildlife</span>
+        <span class="marquee__item">Loft</span>
+        <span class="marquee__item">Locaweb</span>
+        <span class="marquee__item">VTEX</span>
+        <span class="marquee__item">Localiza</span>
+        <span class="marquee__item">Creditas</span>
+        <span class="marquee__item">Neon</span>
+        <span class="marquee__item">Hotmart</span>
+      </div>
+      <div class="marquee__track" aria-hidden="true">
+        <span class="marquee__item">Rappi</span>
+        <span class="marquee__item">Uber</span>
+        <span class="marquee__item">Magazine Luiza</span>
+        <span class="marquee__item">Globo</span>
+        <span class="marquee__item">Rocket</span>
+        <span class="marquee__item">Warren</span>
+        <span class="marquee__item">Wildlife</span>
+        <span class="marquee__item">Loft</span>
+        <span class="marquee__item">Locaweb</span>
+        <span class="marquee__item">VTEX</span>
+        <span class="marquee__item">Localiza</span>
+        <span class="marquee__item">Creditas</span>
+        <span class="marquee__item">Neon</span>
+        <span class="marquee__item">Hotmart</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="formacoes" id="formacoes">
+    <div class="formacoes__head" data-reveal>
+      <div>
+        <span class="eyebrow">formações completas</span>
+        <h2 class="display display--lg">Do zero ao avançado.<br />No método que já formou 25 mil devs.</h2>
+      </div>
+      <div>
+        <p>14 formações. Cada uma é uma trilha completa — projetos reais, mentoria semanal e chegada até o offer letter.</p>
+        <div class="formacoes__hint">← arraste para o lado →</div>
+      </div>
+    </div>
+    <div class="formacoes__scroll" id="formacoes-scroll">
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">01</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">01 / 14</div>
+        <h3 class="formacao__title">Front End</h3>
+        <div class="formacao__meta">6 meses · 320h</div>
+        <p class="formacao__desc">Do primeiro &lt;div&gt; ao componente que aguenta 1M de usuários. React, TypeScript, testes e performance de verdade.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">React</span><span class="stack-pill">TypeScript</span><span class="stack-pill">Next.js</span><span class="stack-pill">Tailwind</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">02</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">02 / 14</div>
+        <h3 class="formacao__title">Back End</h3>
+        <div class="formacao__meta">6 meses · 320h</div>
+        <p class="formacao__desc">Você sai construindo API que a galera do front briga pra usar. Node, banco relacional, arquitetura e observabilidade.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">Node</span><span class="stack-pill">PostgreSQL</span><span class="stack-pill">Docker</span><span class="stack-pill">Prisma</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">03</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">03 / 14</div>
+        <h3 class="formacao__title">Full Stack</h3>
+        <div class="formacao__meta">10 meses · 520h</div>
+        <p class="formacao__desc">Front + Back + Deploy. O pacote inteiro. Termina com 3 projetos publicados e um portfólio que recrutador abre.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">React</span><span class="stack-pill">Node</span><span class="stack-pill">AWS</span><span class="stack-pill">Docker</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">04</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">04 / 14</div>
+        <h3 class="formacao__title">Mobile</h3>
+        <div class="formacao__meta">4 meses · 200h</div>
+        <p class="formacao__desc">App na loja em 4 meses. React Native, integrações nativas, publicação na App Store e Play Store.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">React Native</span><span class="stack-pill">Expo</span><span class="stack-pill">Firebase</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">05</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">05 / 14</div>
+        <h3 class="formacao__title">React</h3>
+        <div class="formacao__meta">3 meses · 160h</div>
+        <p class="formacao__desc">Especialização profunda. Hooks avançados, padrões de componentes, performance, testes e state management.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">React 19</span><span class="stack-pill">Zustand</span><span class="stack-pill">Vitest</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">06</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">06 / 14</div>
+        <h3 class="formacao__title">Node</h3>
+        <div class="formacao__meta">3 meses · 160h</div>
+        <p class="formacao__desc">API que roda em produção. Arquitetura em camadas, filas, cache, autenticação e escalabilidade.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">Node</span><span class="stack-pill">Fastify</span><span class="stack-pill">Redis</span><span class="stack-pill">Postgres</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">07</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">07 / 14</div>
+        <h3 class="formacao__title">JavaScript Completo</h3>
+        <div class="formacao__meta">4 meses · 200h</div>
+        <p class="formacao__desc">A linguagem sem enrolação. Do fundamento à metaprogramação. Vira base pra qualquer stack que você quiser depois.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">JS moderno</span><span class="stack-pill">ES2025</span><span class="stack-pill">Vanilla</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">08</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">08 / 14</div>
+        <h3 class="formacao__title">HTML5 &amp; CSS3</h3>
+        <div class="formacao__meta">2 meses · 100h</div>
+        <p class="formacao__desc">A base que ninguém ensina direito. Semântica, acessibilidade, grid, animações e layouts que não quebram.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">HTML5</span><span class="stack-pill">CSS3</span><span class="stack-pill">A11y</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">09</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">09 / 14</div>
+        <h3 class="formacao__title">Gestor de IA</h3>
+        <div class="formacao__meta">3 meses · 140h</div>
+        <p class="formacao__desc">A carreira que apareceu em 2025 e ninguém domina. Como orquestrar agentes, workflows e times humano+IA.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">Claude</span><span class="stack-pill">GPT-5</span><span class="stack-pill">Prompting</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">10</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">10 / 14</div>
+        <h3 class="formacao__title">IA &amp; Automações</h3>
+        <div class="formacao__meta">3 meses · 140h</div>
+        <p class="formacao__desc">Automatize processos que ninguém quer fazer. Do simples ao agente autônomo com múltiplas ferramentas.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">n8n</span><span class="stack-pill">Make</span><span class="stack-pill">Python</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">11</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">11 / 14</div>
+        <h3 class="formacao__title">Claude &amp; Claude Code</h3>
+        <div class="formacao__meta">2 meses · 100h</div>
+        <p class="formacao__desc">A ferramenta que tá redefinindo como se escreve software em 2026. Do zero à orquestração agentic completa.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">Claude Code</span><span class="stack-pill">MCP</span><span class="stack-pill">Agents</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">12</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">12 / 14</div>
+        <h3 class="formacao__title">Trilha n8n</h3>
+        <div class="formacao__meta">2 meses · 80h</div>
+        <p class="formacao__desc">A ferramenta de automação que tá substituindo dev júnior em muitas empresas. Aprenda antes que virem seu concorrente.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">n8n</span><span class="stack-pill">Webhooks</span><span class="stack-pill">API</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">13</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">13 / 14</div>
+        <h3 class="formacao__title">Análise de Dados</h3>
+        <div class="formacao__meta">5 meses · 260h</div>
+        <p class="formacao__desc">SQL, Python, viz e ML aplicado. Sai com portfólio de 4 análises publicadas — não com curso concluído.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">Python</span><span class="stack-pill">SQL</span><span class="stack-pill">Pandas</span><span class="stack-pill">Power BI</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+      <article class="formacao" data-tilt>
+        <div class="formacao__bignum" aria-hidden="true">14</div>
+        <div class="formacao__glow"></div>
+        <div class="formacao__num">14 / 14</div>
+        <h3 class="formacao__title">DevOps &amp; Cloud</h3>
+        <div class="formacao__meta">4 meses · 200h</div>
+        <p class="formacao__desc">O papel que paga mais no Brasil. AWS, Docker, Kubernetes, CI/CD e observabilidade em produção.</p>
+        <div class="formacao__stack">
+          <span class="stack-pill">AWS</span><span class="stack-pill">Kubernetes</span><span class="stack-pill">Terraform</span>
+        </div>
+        <a href="#" class="formacao__cta">ver formação <span class="arrow">→</span></a>
+      </article>
+    </div>
+  </section>
+
+  <section class="bonus" aria-label="Aulas bônus com especialistas">
+    <div class="bonus__head" data-reveal>
+      <div>
+        <span class="eyebrow">módulos bônus</span>
+        <h2 class="display display--lg">Aulas extras.<br />Com quem faz o mercado.</h2>
+      </div>
+      <div>
+        <p>Cada mês uma nova aula com quem tá construindo o que a indústria vai copiar em 6 meses. Já inclusa em todas as formações.</p>
+        <div class="bonus__nav">
+          <button id="bonus-prev" aria-label="Anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button id="bonus-next" aria-label="Próximo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="bonus__scroll" id="bonus-scroll">
+      <article class="bonus__card">
+        <div class="bonus__portrait">R</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">processo criativo</div>
+          <h3 class="bonus__name">Radilson Gomes</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            1h 33min
+          </span>
+        </div>
+      </article>
+      <article class="bonus__card">
+        <div class="bonus__portrait">G</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">carreira internacional</div>
+          <h3 class="bonus__name">Gabriel Bosco</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            1h 20min
+          </span>
+        </div>
+      </article>
+      <article class="bonus__card">
+        <div class="bonus__portrait">A</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">como começar em ia</div>
+          <h3 class="bonus__name">Aparício Júnior</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            1h 30min
+          </span>
+        </div>
+      </article>
+      <article class="bonus__card">
+        <div class="bonus__portrait">N</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">design em 3d</div>
+          <h3 class="bonus__name">Nasser Youssef</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            1h 44min
+          </span>
+        </div>
+      </article>
+      <article class="bonus__card">
+        <div class="bonus__portrait">L</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">arquitetura de agentes</div>
+          <h3 class="bonus__name">Lara Sampaio</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            2h 05min
+          </span>
+        </div>
+      </article>
+      <article class="bonus__card">
+        <div class="bonus__portrait">V</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">de dev a fundador</div>
+          <h3 class="bonus__name">Vinícius Tavares</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            1h 18min
+          </span>
+        </div>
+      </article>
+      <article class="bonus__card">
+        <div class="bonus__portrait">C</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">code review para juniores</div>
+          <h3 class="bonus__name">Camila Duarte</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            0h 58min
+          </span>
+        </div>
+      </article>
+      <article class="bonus__card">
+        <div class="bonus__portrait">H</div>
+        <div class="bonus__body">
+          <div class="bonus__topic">passando em big techs</div>
+          <h3 class="bonus__name">Henrique Otoni</h3>
+          <span class="bonus__dur">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            1h 47min
+          </span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="method" aria-label="O caminho até a contratação">
+    <div class="method__head" data-reveal>
+      <span class="eyebrow">o caminho</span>
+      <h2 class="display display--lg">Do primeiro <code>hello world</code><br />ao offer letter, em 6 meses.</h2>
+    </div>
+    <div class="method__timeline" data-reveal>
+      <div class="method__line" aria-hidden="true"></div>
+      <div class="method__step">
+        <div class="method__dot">01</div>
+        <div class="method__month">MÊS 01</div>
+        <h3 class="method__title">Fundamento</h3>
+        <p class="method__desc">HTML, CSS, JS, Git. Termina com sua primeira página no ar.</p>
+      </div>
+      <div class="method__step">
+        <div class="method__dot">02</div>
+        <div class="method__month">MÊS 02</div>
+        <h3 class="method__title">Estrutura</h3>
+        <p class="method__desc">React ou Node, dependendo da trilha. Primeira arquitetura de projeto.</p>
+      </div>
+      <div class="method__step">
+        <div class="method__dot">03</div>
+        <div class="method__month">MÊS 03</div>
+        <h3 class="method__title">Projeto real</h3>
+        <p class="method__desc">Primeiro full stack completo. Publicado. GitHub arrumado, README de gente grande.</p>
+      </div>
+      <div class="method__step">
+        <div class="method__dot">04</div>
+        <div class="method__month">MÊS 04</div>
+        <h3 class="method__title">Portfólio</h3>
+        <p class="method__desc">Segundo projeto + refino. Site pessoal no ar. Perfil no LinkedIn arrumado.</p>
+      </div>
+      <div class="method__step">
+        <div class="method__dot">05</div>
+        <div class="method__month">MÊS 05</div>
+        <h3 class="method__title">Entrevistas</h3>
+        <p class="method__desc">Mocks com a recrutadora. Primeiros processos rolando. Feedback direto.</p>
+      </div>
+      <div class="method__step is-final">
+        <div class="method__dot">✓</div>
+        <div class="method__month">MÊS 06</div>
+        <h3 class="method__title">Offer letter</h3>
+        <p class="method__desc">Aceite. Onboarding. Primeira sprint. Aqui você deixa de ser aluno.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="roadmap" aria-label="Gerador de roadmap com IA">
+    <div class="roadmap__head" data-reveal>
+      <span class="eyebrow">gera seu roadmap</span>
+      <h2 class="display display--md">O agente DevClub monta<br />seu plano em 15 segundos.</h2>
+      <p>Responde 3 perguntas. A IA cruza com o que já funcionou pra 25 mil pessoas antes e devolve seu roadmap personalizado.</p>
+    </div>
+    <div class="roadmap__card" data-reveal>
+      <div class="roadmap__form">
+        <div class="roadmap__question" data-question="1">
+          <span class="roadmap__qlabel">onde você está</span>
+          <h3 class="roadmap__qtext">De onde você tá partindo?</h3>
+          <div class="roadmap__options">
+            <button class="roadmap__opt" data-q="1" data-v="zero">nunca programei</button>
+            <button class="roadmap__opt" data-q="1" data-v="pouco">aprendi um pouco sozinho</button>
+            <button class="roadmap__opt" data-q="1" data-v="ti">já trampo em TI, quero migrar</button>
+          </div>
+        </div>
+        <div class="roadmap__question" data-question="2">
+          <span class="roadmap__qlabel">tempo disponível</span>
+          <h3 class="roadmap__qtext">Quanto tempo por dia?</h3>
+          <div class="roadmap__options">
+            <button class="roadmap__opt" data-q="2" data-v="1h">até 1h</button>
+            <button class="roadmap__opt" data-q="2" data-v="2h">de 2h a 3h</button>
+            <button class="roadmap__opt" data-q="2" data-v="4h">4h ou mais</button>
+          </div>
+        </div>
+        <div class="roadmap__question" data-question="3">
+          <span class="roadmap__qlabel">objetivo</span>
+          <h3 class="roadmap__qtext">Qual seu objetivo?</h3>
+          <div class="roadmap__options">
+            <button class="roadmap__opt" data-q="3" data-v="fe">virar dev front end</button>
+            <button class="roadmap__opt" data-q="3" data-v="be">virar dev back end</button>
+            <button class="roadmap__opt" data-q="3" data-v="fs">virar full stack</button>
+            <button class="roadmap__opt" data-q="3" data-v="ia">trabalhar com IA</button>
+            <button class="roadmap__opt" data-q="3" data-v="dados">trabalhar com dados</button>
+          </div>
+        </div>
+        <button class="btn btn--primary btn--lg roadmap__submit" id="roadmap-submit" disabled>
+          gerar meu roadmap com IA <span class="btn__arrow">→</span>
+        </button>
+      </div>
+      <div class="roadmap__output" id="roadmap-output">
+        <div class="roadmap__thinking" id="roadmap-thinking">
+          <span class="dot"></span>
+          <span id="roadmap-thinking-text">a IA está analisando seu perfil...</span>
+        </div>
+        <div class="roadmap__answer" id="roadmap-answer"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack" id="stack">
+    <div class="stack__head" data-reveal>
+      <span class="eyebrow">stack real do mercado</span>
+      <h2 class="display display--lg">Aprenda o que empresa usa.<br />Não o que o curso de 2018 ensinava.</h2>
+      <p>Toda tecnologia aqui é escolhida por engenheiros que trampam em produção. Se saiu de moda, sai do currículo. Se apareceu na indústria, entra em 30 dias.</p>
+    </div>
+    <div class="stack__grid" data-reveal>
+      <div class="stack__item"><div class="cat">frontend</div><div class="name">React</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">frontend</div><div class="name">Next.js</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">língua</div><div class="name">TypeScript</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">língua</div><div class="name">JavaScript</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">estilo</div><div class="name">Tailwind</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">runtime</div><div class="name">Node</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">runtime</div><div class="name">Bun</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">framework</div><div class="name">Fastify</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">língua</div><div class="name">Python</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">banco</div><div class="name">PostgreSQL</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">banco</div><div class="name">Redis</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">infra</div><div class="name">Docker</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">infra</div><div class="name">AWS</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">infra</div><div class="name">K8s</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">mobile</div><div class="name">React Native</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">IA</div><div class="name">Claude Code</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">IA</div><div class="name">MCP</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">automação</div><div class="name">n8n</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">dados</div><div class="name">Pandas</div><div class="dot"></div></div>
+      <div class="stack__item"><div class="cat">controle</div><div class="name">Git</div><div class="dot"></div></div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Números do DevClub">
+    <div class="stats__grid">
+      <div>
+        <div class="stat__num"><span class="plus">+</span><span data-count="25000">0</span></div>
+        <div class="stat__label">alunos formados desde 2016</div>
+      </div>
+      <div>
+        <div class="stat__num"><span class="plus">+</span><span data-count="4500">0</span></div>
+        <div class="stat__label">contratações registradas</div>
+      </div>
+      <div>
+        <div class="stat__num"><span data-count="47">0</span></div>
+        <div class="stat__label">países com aluno DevClub</div>
+      </div>
+      <div>
+        <div class="stat__num"><span data-count="4">0</span>.<span data-count="9">0</span></div>
+        <div class="stat__label">/5 · nota média (2.847 avaliações)</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="salary" id="salary" aria-label="O quanto o mercado paga">
+    <div class="salary__head" data-reveal>
+      <span class="eyebrow">o mercado paga bem?</span>
+      <h2 class="display display--lg">A pergunta não é se paga.<br />É <em style="color: var(--signal); font-style: normal;">o quanto</em> paga.</h2>
+      <p>Salários médios anuais praticados no mercado em 2025 — Brasil e vagas remotas internacionais. Fonte: Glassdoor + pesquisa própria com 847 alunos formados no DevClub.</p>
+    </div>
+    <div class="salary__chart" data-reveal id="salary-chart">
+      <div class="salary__legend">
+        <span><span class="dot dot--br"></span> Brasil</span>
+        <span><span class="dot dot--int"></span> Internacional (remoto)</span>
+      </div>
+      <div class="salary__row">
+        <div class="salary__seniority">Júnior</div>
+        <div class="salary__bars">
+          <div class="salary__bar salary__bar--br" style="width: 35%;">
+            <span class="salary__value">R$ 70.800 <small>· R$ 5,9k/mês</small></span>
+          </div>
+          <div class="salary__bar salary__bar--int" style="width: 55%;">
+            <span class="salary__value">R$ 135.928 <small>· US$ 27k/ano</small></span>
+          </div>
+        </div>
+      </div>
+      <div class="salary__row">
+        <div class="salary__seniority">Pleno</div>
+        <div class="salary__bars">
+          <div class="salary__bar salary__bar--br" style="width: 55%;">
+            <span class="salary__value">R$ 140.400 <small>· R$ 11,7k/mês</small></span>
+          </div>
+          <div class="salary__bar salary__bar--int" style="width: 78%;">
+            <span class="salary__value">R$ 201.375 <small>· US$ 40k/ano</small></span>
+          </div>
+        </div>
+      </div>
+      <div class="salary__row">
+        <div class="salary__seniority">Sênior</div>
+        <div class="salary__bars">
+          <div class="salary__bar salary__bar--br" style="width: 72%;">
+            <span class="salary__value">R$ 196.800 <small>· R$ 16,4k/mês</small></span>
+          </div>
+          <div class="salary__bar salary__bar--int" style="width: 100%;">
+            <span class="salary__value">R$ 307.098 <small>· US$ 61k/ano</small></span>
+          </div>
+        </div>
+      </div>
+      <p class="salary__note">// alunos DevClub em vagas internacionais têm em média +17% acima da mediana. formação inclui inglês técnico e mock em inglês.</p>
+    </div>
+  </section>
+
+  <section class="beyond">
+    <div class="beyond__head" data-reveal>
+      <div>
+        <span class="eyebrow">além do código</span>
+        <h2 class="display display--lg">Aprender a programar<br />é só metade do caminho.</h2>
+      </div>
+      <p>Todo aluno DevClub vem com uma estrutura de apoio pensada pra transformar aprendizado em carreira. Não é curso — é acompanhamento.</p>
+    </div>
+    <div class="beyond__grid" data-reveal>
+      <div class="beyond__item">
+        <span class="num">01</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        </div>
+        <h3>Recrutadora semanal</h3>
+        <p>Sua carreira tem um responsável. Ela te acompanha do primeiro dia até o offer letter — currículo, portfólio, simulações e networking.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">02</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <h3>Terapeuta de performance</h3>
+        <p>Porque virar dev do zero também mexe com a cabeça. Sessões incluídas com profissional focado em alta performance.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">03</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 12h8M8 8h8M8 16h5"/><path d="M4 4h16v16H4z"/></svg>
+        </div>
+        <h3>Mentorias semanais</h3>
+        <p>Toda semana, ao vivo. Com pessoas que estão trampando agora em Stone, Nubank, Meta. Perguntas reais, respostas do dia a dia.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">04</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Agentes de IA 24/7</h3>
+        <p>Dezenas de agentes especializados: revisor de código, mock interviewer, corrigidor de portfolio. Suporte inteligente às 3 da manhã.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">05</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12c0 5-4 9-9 9s-9-4-9-9 4-9 9-9c1.5 0 3 .4 4.3 1"/><path d="M12 8v4l3 2"/></svg>
+        </div>
+        <h3>Suporte humano 7 dias</h3>
+        <p>Domingo às 23h? Alguém responde em ~40 minutos. Média real de 2025. Não é chatbot — é gente que sabe programar.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">06</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M13 20c0-3.3 2.7-6 6-6"/></svg>
+        </div>
+        <h3>Comunidade real</h3>
+        <p>A maior do Brasil. +25 mil devs conectados no Discord. Encontros presenciais em SP, RJ, POA, Recife, Belém e Fortaleza.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">07</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+        </div>
+        <h3>Vagas exclusivas</h3>
+        <p>Empresas parceiras enviam vaga aqui antes de publicar no mercado. Você compete só com quem também é DevClub — não com o Brasil inteiro.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">08</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l16 16M4 20L20 4"/></svg>
+        </div>
+        <h3>Sem pegadinha</h3>
+        <p>Uma mensalidade, tudo incluído. Sem "módulo premium", sem "certificado à parte". Se saiu insatisfeito nos primeiros 15 dias, devolvemos.</p>
+      </div>
+      <div class="beyond__item">
+        <span class="num">09</span>
+        <div class="beyond__icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg>
+        </div>
+        <h3>Emprego ou reembolso</h3>
+        <p>Formações completas vêm com garantia de contratação em 12 meses. Não conseguiu? Devolvemos 100%. Só 6 escolas no país têm essa política.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="editor-section" id="editor">
+    <div class="editor-section__head" data-reveal>
+      <span class="eyebrow">no fundo, é isso</span>
+      <h2 class="display display--md">O método DevClub, em código.</h2>
+      <p>Aperta <b>Run</b> pra ver o que acontece com quem entra hoje.</p>
+    </div>
+    <div class="editor" data-reveal>
+      <div class="editor__bar">
+        <div class="editor__dots"><span></span><span></span><span></span></div>
+        <div class="editor__tabs">
+          <span class="editor__tab is-active">aluno.js</span>
+          <span class="editor__tab">carreira.ts</span>
+          <span class="editor__tab">contrato.json</span>
+        </div>
+      </div>
+      <div class="editor__body">
+        <div class="editor__nums" aria-hidden="true">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+          <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+          <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+          <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+          <span>21</span><span>22</span><span>23</span><span>24</span>
+        </div>
+        <pre class="editor__code"><span class="cm">// aluno.js — método DevClub</span>
+<span class="kw">import</span> { mentoria, recrutadora, comunidade } <span class="kw">from</span> <span class="st">'./devclub'</span>
+
+<span class="kw">class</span> <span class="cl">Aluno</span> {
+  <span class="fn">constructor</span>(nome) {
+    <span class="kw">this</span>.nome = nome
+    <span class="kw">this</span>.commits = <span class="nu">0</span>
+    <span class="kw">this</span>.contratado = <span class="kw">false</span>
+  }
+
+  <span class="kw">async</span> <span class="fn">estudar</span>(horasPorDia = <span class="nu">2</span>) {
+    <span class="kw">while</span> (!<span class="kw">this</span>.contratado) {
+      <span class="kw">this</span>.commits += <span class="nu">1</span>
+      <span class="kw">await</span> <span class="fn">mentoria</span>(<span class="st">'semanal'</span>)
+      <span class="kw">if</span> (<span class="kw">this</span>.commits % <span class="nu">30</span> === <span class="nu">0</span>) {
+        <span class="kw">await</span> recrutadora.<span class="fn">review</span>(<span class="kw">this</span>.portfolio)
+      }
+    }
+    <span class="kw">return</span> <span class="st">`${</span><span class="kw">this</span><span class="st">.nome} foi contratado 🎉`</span>
+  }
+}
+
+<span class="cm">// tentei sozinho por 2 anos e travei.</span>
+<span class="cm">// no devclub travei em 6 meses e trampo há 3.</span>
+<span class="kw">const</span> eu = <span class="kw">new</span> <span class="cl">Aluno</span>(<span class="st">'você'</span>)
+eu.<span class="fn">estudar</span>()</pre>
+      </div>
+      <div class="editor__run-wrap">
+        <span class="editor__run-hint">saída aparece abaixo ↓</span>
+        <button class="btn btn--primary editor__run" id="run-btn">Run ▶</button>
+      </div>
+      <div class="editor__terminal" id="terminal">
+        <span class="editor__terminal-empty">// terminal vazio — aperta Run pra executar</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="platform">
+    <div class="platform__grid">
+      <div class="platform__text" data-reveal>
+        <span class="eyebrow">plataforma</span>
+        <h2 class="display display--md">Feita por quem programa.<br />Pra quem programa.</h2>
+        <p>Tudo num só lugar. Aulas, comunidade, agentes de IA, mentorias, vagas, playground. Sem 8 abas, sem 4 senhas.</p>
+        <ul class="platform__list">
+          <li><svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg> Cursos organizados por trilhas e formações</li>
+          <li><svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg> Comunidade integrada com Discord</li>
+          <li><svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg> Club Agents — dezenas de agentes especializados</li>
+          <li><svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg> Playground de treinamento com desafios reais</li>
+          <li><svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg> Mural da fama — quem tá arrasando esse mês</li>
+          <li><svg class="icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10l4 4 8-8"/></svg> Certificados reconhecidos por empresas parceiras</li>
+        </ul>
+      </div>
+      <div class="mockup" data-reveal aria-hidden="true">
+        <div class="mockup__bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="url">plataforma.devclub.com.br</div>
+        </div>
+        <div class="mockup__body">
+          <div class="mockup__side">
+            <div class="avatar"></div>
+            <div class="nav-i active"></div>
+            <div class="nav-i"></div>
+            <div class="nav-i"></div>
+            <div class="nav-i"></div>
+          </div>
+          <div class="mockup__main">
+            <div class="mockup__topbar">
+              <div class="search"></div>
+              <div class="badge"></div>
+            </div>
+            <div class="mockup__cards">
+              <div class="mockup__card"><div class="thumb"></div><div class="l1"></div><div class="l2"></div></div>
+              <div class="mockup__card"><div class="thumb"></div><div class="l1"></div><div class="l2"></div></div>
+              <div class="mockup__card"><div class="thumb"></div><div class="l1"></div><div class="l2"></div></div>
+              <div class="mockup__card"><div class="thumb"></div><div class="l1"></div><div class="l2"></div></div>
+              <div class="mockup__card"><div class="thumb"></div><div class="l1"></div><div class="l2"></div></div>
+              <div class="mockup__card"><div class="thumb"></div><div class="l1"></div><div class="l2"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="certs" aria-label="Certificados reconhecidos">
+    <div class="certs__head" data-reveal>
+      <span class="eyebrow">certificados oficiais</span>
+      <h2 class="display display--lg">Reconhecimento real<br />pra quem conclui.</h2>
+      <p>Certificado emitido no fim de cada formação. Reconhecido pelas empresas parceiras (Nubank, Stone, iFood, XP e mais 40). Formações longas contam carga horária MEC.</p>
+    </div>
+    <div class="certs__grid" data-reveal>
+      <div class="cert">
+        <div class="cert-inner">
+          <div class="cert__face cert__face--front">
+            <div class="cert__mark">DEVCLUB · 2026</div>
+            <div>
+          <h3 class="cert__title">Certificado de<br />Formação Front End</h3>
+          <div class="cert__sub">carga horária · 320h</div>
+        </div>
+            <div class="cert__foot">
+          <span>#DC-2026-FE-8471</span>
+          <div class="cert__seal">✓</div>
+        </div>
+            <div class="cert__flip-hint">clique · verso</div>
+          </div>
+          <div class="cert__face cert__face--back">
+            <div class="cert__back-header">DEVCLUB · CERTIFICADO OFICIAL</div>
+            <div class="cert__back-qr" aria-hidden="true"></div>
+            <div class="cert__back-details">
+              <div>certificado: <b>#DC-2026-FE-8471</b></div>
+              <div>emitido em: <b>02 mar 2026</b></div>
+              <div>validação: <b>devclub.com.br/verifica</b></div>
+              <div>carga horária · 320h</div>
+            </div>
+            <div class="cert__back-sign">
+              assinado digitalmente por<br/>
+              DEVCLUB EDUCAÇÃO LTDA · CNPJ 00.000.000/0001-00
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cert">
+        <div class="cert-inner">
+          <div class="cert__face cert__face--front">
+            <div class="cert__mark">DEVCLUB · 2026</div>
+            <div>
+          <h3 class="cert__title">Certificado de<br />Formação Back End</h3>
+          <div class="cert__sub">carga horária · 320h</div>
+        </div>
+            <div class="cert__foot">
+          <span>#DC-2026-BE-2340</span>
+          <div class="cert__seal">✓</div>
+        </div>
+            <div class="cert__flip-hint">clique · verso</div>
+          </div>
+          <div class="cert__face cert__face--back">
+            <div class="cert__back-header">DEVCLUB · CERTIFICADO OFICIAL</div>
+            <div class="cert__back-qr" aria-hidden="true"></div>
+            <div class="cert__back-details">
+              <div>certificado: <b>#DC-2026-BE-2340</b></div>
+              <div>emitido em: <b>02 mar 2026</b></div>
+              <div>validação: <b>devclub.com.br/verifica</b></div>
+              <div>carga horária · 320h</div>
+            </div>
+            <div class="cert__back-sign">
+              assinado digitalmente por<br/>
+              DEVCLUB EDUCAÇÃO LTDA · CNPJ 00.000.000/0001-00
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cert">
+        <div class="cert-inner">
+          <div class="cert__face cert__face--front">
+            <div class="cert__mark">DEVCLUB · 2026</div>
+            <div>
+          <h3 class="cert__title">Certificado de<br />Formação Full Stack</h3>
+          <div class="cert__sub">carga horária · 520h</div>
+        </div>
+            <div class="cert__foot">
+          <span>#DC-2026-FS-1187</span>
+          <div class="cert__seal">✓</div>
+        </div>
+            <div class="cert__flip-hint">clique · verso</div>
+          </div>
+          <div class="cert__face cert__face--back">
+            <div class="cert__back-header">DEVCLUB · CERTIFICADO OFICIAL</div>
+            <div class="cert__back-qr" aria-hidden="true"></div>
+            <div class="cert__back-details">
+              <div>certificado: <b>#DC-2026-FS-1187</b></div>
+              <div>emitido em: <b>02 mar 2026</b></div>
+              <div>validação: <b>devclub.com.br/verifica</b></div>
+              <div>carga horária · 520h</div>
+            </div>
+            <div class="cert__back-sign">
+              assinado digitalmente por<br/>
+              DEVCLUB EDUCAÇÃO LTDA · CNPJ 00.000.000/0001-00
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cert">
+        <div class="cert-inner">
+          <div class="cert__face cert__face--front">
+            <div class="cert__mark">DEVCLUB · 2026</div>
+            <div>
+          <h3 class="cert__title">Certificado de<br />Especialização IA</h3>
+          <div class="cert__sub">carga horária · 140h</div>
+        </div>
+            <div class="cert__foot">
+          <span>#DC-2026-IA-0923</span>
+          <div class="cert__seal">✓</div>
+        </div>
+            <div class="cert__flip-hint">clique · verso</div>
+          </div>
+          <div class="cert__face cert__face--back">
+            <div class="cert__back-header">DEVCLUB · CERTIFICADO OFICIAL</div>
+            <div class="cert__back-qr" aria-hidden="true"></div>
+            <div class="cert__back-details">
+              <div>certificado: <b>#DC-2026-IA-0923</b></div>
+              <div>emitido em: <b>02 mar 2026</b></div>
+              <div>validação: <b>devclub.com.br/verifica</b></div>
+              <div>carga horária · 140h</div>
+            </div>
+            <div class="cert__back-sign">
+              assinado digitalmente por<br/>
+              DEVCLUB EDUCAÇÃO LTDA · CNPJ 00.000.000/0001-00
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cert">
+        <div class="cert-inner">
+          <div class="cert__face cert__face--front">
+            <div class="cert__mark">DEVCLUB · 2026</div>
+            <div>
+          <h3 class="cert__title">Certificado de<br />Análise de Dados</h3>
+          <div class="cert__sub">carga horária · 260h</div>
+        </div>
+            <div class="cert__foot">
+          <span>#DC-2026-DA-3341</span>
+          <div class="cert__seal">✓</div>
+        </div>
+            <div class="cert__flip-hint">clique · verso</div>
+          </div>
+          <div class="cert__face cert__face--back">
+            <div class="cert__back-header">DEVCLUB · CERTIFICADO OFICIAL</div>
+            <div class="cert__back-qr" aria-hidden="true"></div>
+            <div class="cert__back-details">
+              <div>certificado: <b>#DC-2026-DA-3341</b></div>
+              <div>emitido em: <b>02 mar 2026</b></div>
+              <div>validação: <b>devclub.com.br/verifica</b></div>
+              <div>carga horária · 260h</div>
+            </div>
+            <div class="cert__back-sign">
+              assinado digitalmente por<br/>
+              DEVCLUB EDUCAÇÃO LTDA · CNPJ 00.000.000/0001-00
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cert">
+        <div class="cert-inner">
+          <div class="cert__face cert__face--front">
+            <div class="cert__mark">DEVCLUB · 2026</div>
+            <div>
+          <h3 class="cert__title">Certificado de<br />DevOps &amp; Cloud</h3>
+          <div class="cert__sub">carga horária · 200h</div>
+        </div>
+            <div class="cert__foot">
+          <span>#DC-2026-DO-5522</span>
+          <div class="cert__seal">✓</div>
+        </div>
+            <div class="cert__flip-hint">clique · verso</div>
+          </div>
+          <div class="cert__face cert__face--back">
+            <div class="cert__back-header">DEVCLUB · CERTIFICADO OFICIAL</div>
+            <div class="cert__back-qr" aria-hidden="true"></div>
+            <div class="cert__back-details">
+              <div>certificado: <b>#DC-2026-DO-5522</b></div>
+              <div>emitido em: <b>02 mar 2026</b></div>
+              <div>validação: <b>devclub.com.br/verifica</b></div>
+              <div>carga horária · 200h</div>
+            </div>
+            <div class="cert__back-sign">
+              assinado digitalmente por<br/>
+              DEVCLUB EDUCAÇÃO LTDA · CNPJ 00.000.000/0001-00
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto" data-reveal aria-label="Manifesto DevClub">
+    <div class="manifesto__inner">
+      <span class="manifesto__eyebrow">manifesto</span>
+      <div class="manifesto__lines">
+        <span class="manifesto__line">Sozinho, <em>dois anos</em>.</span>
+        <span class="manifesto__line">Aqui, <em>seis meses</em>.</span>
+        <span class="manifesto__line manifesto__line--accent">A conta é essa.</span>
+      </div>
+      <p class="manifesto__foot">
+        <b>O DevClub existe porque aprender a programar sozinho é possível — mas é lento, solitário e você não sabe o que não sabe.</b>
+        Aqui, alguém te aponta o caminho, te acompanha até chegar, e te apresenta ao mercado quando você tá pronto.
+        É uma escolha entre tentativa e erro e um método que já funcionou 25 mil vezes.
+      </p>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="projects__head" data-reveal>
+      <span class="eyebrow">projetos reais</span>
+      <h2 class="display display--lg">Você não sai daqui com curso.<br />Sai com portfólio.</h2>
+      <p>Cada formação tem 3 a 5 projetos completos. Publicados, versionados, com README de gente grande. Recrutador abre e entende.</p>
+    </div>
+    <div class="projects__grid" data-reveal>
+      <div class="project">
+        <div class="project__thumb"><span>e-com</span></div>
+        <div class="project__body">
+          <div class="project__meta">formação · full stack</div>
+          <h3 class="project__title">Marketplace de bairro</h3>
+          <div class="project__tech">Next.js · Node · Postgres · Stripe</div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project__thumb"><span>chat</span></div>
+        <div class="project__body">
+          <div class="project__meta">formação · back end</div>
+          <h3 class="project__title">Chat em tempo real</h3>
+          <div class="project__tech">Node · WebSocket · Redis · React</div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project__thumb"><span>dash</span></div>
+        <div class="project__body">
+          <div class="project__meta">formação · dados</div>
+          <h3 class="project__title">Dashboard financeiro</h3>
+          <div class="project__tech">Python · Streamlit · DuckDB</div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project__thumb"><span>app</span></div>
+        <div class="project__body">
+          <div class="project__meta">formação · mobile</div>
+          <h3 class="project__title">Delivery de comida</h3>
+          <div class="project__tech">React Native · Expo · Firebase</div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project__thumb"><span>ia</span></div>
+        <div class="project__body">
+          <div class="project__meta">formação · claude</div>
+          <h3 class="project__title">Agente autônomo com MCP</h3>
+          <div class="project__tech">Claude · MCP · Node · Docker</div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project__thumb"><span>saas</span></div>
+        <div class="project__body">
+          <div class="project__meta">formação · full stack</div>
+          <h3 class="project__title">SaaS de emissão de NF</h3>
+          <div class="project__tech">Next.js · tRPC · Prisma · AWS</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tutors" id="tutores">
+    <div class="tutors__head" data-reveal>
+      <span class="eyebrow">tutores</span>
+      <h2 class="display display--lg">Os professores<br />que você pagaria pra ter.</h2>
+      <p>Todos nossos tutores são engenheiros em atividade. Ninguém dá aula aqui de segunda a sexta e só faz curso pra viver — eles trampam em produção e mostram como é lá dentro.</p>
+    </div>
+    <div class="tutors__grid" data-reveal>
+      <div class="tutor">
+        <div class="tutor__avatar">DA</div>
+        <div>
+          <h3 class="tutor__name">Daniel Alves</h3>
+          <p class="tutor__role">senior FE engineer · ensina react/next</p>
+        </div>
+        <p class="tutor__bio">Trampou 4 anos na Netflix, 2 na Vercel. Hoje trabalha remoto pra uma fintech em Berlim. Ensina no DevClub desde 2020.</p>
+        <div class="tutor__past">
+          <span class="stack-pill">ex-Netflix</span><span class="stack-pill">ex-Vercel</span>
+        </div>
+      </div>
+      <div class="tutor">
+        <div class="tutor__avatar">SN</div>
+        <div>
+          <h3 class="tutor__name">Sarah Nakamura</h3>
+          <p class="tutor__role">staff AI engineer · ensina claude/mcp</p>
+        </div>
+        <p class="tutor__bio">Passou pela OpenAI Brasil, hoje é staff engineer numa startup Series B de agentes autônomos. Escreve MCP servers no fim de semana por diversão.</p>
+        <div class="tutor__past">
+          <span class="stack-pill">ex-OpenAI</span><span class="stack-pill">Claude Code</span>
+        </div>
+      </div>
+      <div class="tutor">
+        <div class="tutor__avatar">RF</div>
+        <div>
+          <h3 class="tutor__name">Rodrigo Fernandez</h3>
+          <p class="tutor__role">principal backend · ensina node/api</p>
+        </div>
+        <p class="tutor__bio">Passou por Stripe, hoje é principal engineer num unicórnio brasileiro. Já escalou API pra 300 milhões de requests/dia. Conta como sem enrolação.</p>
+        <div class="tutor__past">
+          <span class="stack-pill">ex-Stripe</span><span class="stack-pill">Fastify</span>
+        </div>
+      </div>
+      <div class="tutor">
+        <div class="tutor__avatar">MP</div>
+        <div>
+          <h3 class="tutor__name">Marina Prado</h3>
+          <p class="tutor__role">CTO · ensina carreira &amp; liderança</p>
+        </div>
+        <p class="tutor__bio">CTO de uma fintech Series C. Contratou +200 devs em 5 anos. Ensina o outro lado da mesa — como um recrutador realmente lê seu currículo.</p>
+        <div class="tutor__past">
+          <span class="stack-pill">CTO</span><span class="stack-pill">Series C</span>
+        </div>
+      </div>
+      <div class="tutor">
+        <div class="tutor__avatar">PH</div>
+        <div>
+          <h3 class="tutor__name">Pedro Henrique</h3>
+          <p class="tutor__role">cloud architect · ensina aws/devops</p>
+        </div>
+        <p class="tutor__bio">Passou 6 anos na AWS Brasil como solutions architect. Hoje presta consultoria pra Warren, XP e Locaweb. Ensina infra como quem gosta.</p>
+        <div class="tutor__past">
+          <span class="stack-pill">ex-AWS</span><span class="stack-pill">Terraform</span>
+        </div>
+      </div>
+      <div class="tutor">
+        <div class="tutor__avatar">JS</div>
+        <div>
+          <h3 class="tutor__name">Julia Sato</h3>
+          <p class="tutor__role">head of data · ensina python/dados</p>
+        </div>
+        <p class="tutor__bio">Head of Data na Booking Brasil. Ex-Nubank. Doutorado em stats. Traduz matemática pesada em coisa que faz sentido no dia a dia.</p>
+        <div class="tutor__past">
+          <span class="stack-pill">ex-Booking</span><span class="stack-pill">ex-Nubank</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="voices" id="depoimentos">
+    <div class="voices__head" data-reveal>
+      <span class="eyebrow">alunos</span>
+      <h2 class="display display--lg">Eles fizeram.</h2>
+      <p>Depoimentos reais direto do canal #vitórias do Discord.</p>
+    </div>
+    <article class="voice-video" data-reveal>
+      <div class="voice-video__quote">
+        <p class="voice-video__q">Entrei sem saber ligar computador direito. Em 8 meses tinha proposta na mão. Nubank pagou R$8k inicial. Continuo pagando a mensalidade só pra ter acesso à comunidade.</p>
+        <div class="voice-video__who">
+          <div class="voice-video__avatar">CR</div>
+          <div>
+            <div class="voice-video__name">Camila Rocha</div>
+            <span class="voice-video__handle">@camila.codes · frontend @ Nubank</span>
+          </div>
+        </div>
+      </div>
+      <div class="voice-video__thumb" role="button" tabindex="0" aria-label="Assistir depoimento em vídeo">
+        <div class="voice-video__play">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+    </article>
+
+    <div class="voices__list" data-reveal>
+      <div class="voice">
+        <div class="voice__avatar">DA</div>
+        <div class="voice__body">
+          <div class="voice__head">
+            <span class="voice__name">Diego Alves</span>
+            <span class="voice__tag">full stack dev @ iFood · há 1 ano</span>
+          </div>
+          <div class="voice__msg">O suporte 7 dias por semana é REAL, gente. Enviei código num domingo às 23h achando que ia ficar sem resposta. Em 40 minutos veio review completo. Aqui eles brincam que a gente é o "produto premium".</div>
+        </div>
+      </div>
+      <div class="voice">
+        <div class="voice__avatar">RL</div>
+        <div class="voice__body">
+          <div class="voice__head">
+            <span class="voice__name">Rafaela Lima</span>
+            <span class="voice__tag">data analyst @ Ambev · há 8 meses</span>
+          </div>
+          <div class="voice__msg">Faltavam 3 semanas pra minha entrevista técnica final. Postei desesperada no Discord. Marcaram 4 mocks comigo naquela semana. Duas com pessoas que já trabalharam na Ambev. Passei.</div>
+        </div>
+      </div>
+      <div class="voice">
+        <div class="voice__avatar">BS</div>
+        <div class="voice__body">
+          <div class="voice__head">
+            <span class="voice__name">Bruno Santana</span>
+            <span class="voice__tag">backend dev @ Stone · há 3 anos</span>
+          </div>
+          <div class="voice__msg">Já fiz 3 bootcamps antes. Todos me deram diploma. Só o DevClub me deu emprego. A diferença? Aqui alguém liga se você tá parado. Nos outros ninguém percebia.</div>
+        </div>
+      </div>
+      <div class="voice">
+        <div class="voice__avatar">MC</div>
+        <div class="voice__body">
+          <div class="voice__head">
+            <span class="voice__name">Mariana Costa</span>
+            <span class="voice__tag">mobile dev @ 99 · há 6 meses</span>
+          </div>
+          <div class="voice__msg">Já publiquei 4 apps depois de sair. Além do CLT ganho freela quase todo mês só de projetos que aparecem no Discord. A comunidade sozinha já paga a mensalidade.</div>
+        </div>
+      </div>
+      <div class="voice">
+        <div class="voice__avatar">LF</div>
+        <div class="voice__body">
+          <div class="voice__head">
+            <span class="voice__name">Lucas Ferreira</span>
+            <span class="voice__tag">AI engineer @ Meta · há 1 ano</span>
+          </div>
+          <div class="voice__msg">Aprendi Claude Code aqui em janeiro de 2025 — antes de virar mainstream. Quando começou a explodir no mercado, era eu que sabia. Hoje trampo em Meta remoto de Recife. A formação de IA do DevClub tá 2 anos à frente do resto do país.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="warranty" aria-label="Garantia de 7 dias">
+    <div class="warranty__box" data-reveal>
+      <div class="warranty__seal">
+        <div class="warranty__seal-inner">
+          07
+          <small>DIAS</small>
+        </div>
+        <div class="warranty__seal-ring" aria-hidden="true"></div>
+      </div>
+      <div class="warranty__content">
+        <div class="warranty__eyebrow">risco zero pra você</div>
+        <h3 class="warranty__title">7 dias de garantia incondicional.</h3>
+        <p class="warranty__desc">
+          <b>Você tem 7 dias depois da matrícula</b> pra explorar todos os cursos, comunidade, mentorias e ferramentas. Se não for pra você, é só pedir reembolso. <b>Sem burocracia, sem letra miúda, sem "provou que tentou".</b> Dinheiro de volta em até 48h.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-final" id="cta">
+    <div class="cta-final__grid" aria-hidden="true"></div>
+    <span class="eyebrow" data-reveal>agora é com você</span>
+    <h2 data-reveal>Bora?</h2>
+    <p data-reveal>25 mil pessoas tomaram essa decisão antes. A maioria diz a mesma coisa: "queria ter começado antes".</p>
+    <div class="cta-final__actions" data-reveal>
+      <a href="#" class="btn btn--primary btn--lg" data-magnetic>quero ser aluno <span class="btn__arrow">→</span></a>
+      <a href="#" class="btn btn--ghost btn--lg" data-magnetic>falar com humano</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <a href="#" class="footer__brand">
+      <svg viewBox="0 0 26 26" fill="none" width="20" height="20" aria-hidden="true">
+        <rect x="1" y="1" width="24" height="24" rx="6" stroke="#7CFF6B" stroke-width="1.5"/>
+        <path d="M7 10L10 13L7 16" stroke="#7CFF6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 17H19" stroke="#F4F2EC" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      DEVCLUB
+    </a>
+    <div class="footer__links">
+      <a href="#formacoes">formações</a>
+      <a href="#">faculdade</a>
+      <a href="#">blog</a>
+      <a href="#">área do aluno</a>
+      <a href="#">contato</a>
+    </div>
+    <div class="footer__tagline">
+      © 2026 · programador de verdade, contratado de verdade
+    </div>
+  </footer>
+
+</body>
+</html>
